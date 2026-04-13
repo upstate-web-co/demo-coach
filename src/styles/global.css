@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme {
+  --color-teal: #0D9488;
+  --color-teal-dark: #0F766E;
+  --color-teal-light: #5EEAD4;
+  --color-warm-white: #FEFDFB;
+  --color-cream: #F5F0EB;
+  --color-charcoal: #1C1917;
+  --color-muted: #78716C;
+  --color-gold: #D97706;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: system-ui, -apple-system, sans-serif; color: #1C1917; }
+h1 { font-family: 'Georgia', serif; }

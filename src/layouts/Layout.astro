@@ -1,0 +1,64 @@
+---
+import '../styles/global.css'
+import { SITE } from '../lib/config'
+interface Props { title?: string; description?: string }
+const { title = `${SITE.name} — ${SITE.tagline}`, description = `Executive coaching for leaders. 1:1 sessions, team workshops, VIP intensives. ${SITE.phone}` } = Astro.props
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="preconnect" href="https://images.unsplash.com" />
+</head>
+<body class="bg-warm-white text-charcoal antialiased">
+  <nav class="sticky top-0 z-50 bg-warm-white/95 backdrop-blur-sm border-b border-teal/10">
+    <div class="mx-auto max-w-6xl flex items-center justify-between px-6 py-4">
+      <a href="/" class="text-xl font-semibold"><span class="text-teal">Clarity</span> Coaching</a>
+      <div class="hidden md:flex items-center gap-6 text-sm">
+        <a href="#services" class="text-muted hover:text-teal transition-colors">Services</a>
+        <a href="#about" class="text-muted hover:text-teal transition-colors">About</a>
+        <a href="#testimonials" class="text-muted hover:text-teal transition-colors">Results</a>
+        <a href="#resource" class="text-muted hover:text-teal transition-colors">Free Guide</a>
+        <a href={SITE.bookingUrl} class="rounded-lg bg-teal px-5 py-2 font-medium text-white hover:bg-teal-dark transition-colors">Book a Call</a>
+      </div>
+    </div>
+  </nav>
+  <main><slot /></main>
+
+  <!-- Demo Disclaimer -->
+  <div class="bg-yellow-50 border-y border-yellow-200 py-3 px-6 text-center">
+    <p class="text-xs text-yellow-800">
+      <strong>Portfolio Demo</strong> — This is a sample site built by <a href="https://upstate-web.com" class="underline hover:text-yellow-900">Upstate Web Co</a> to showcase what we build for this industry. This is not a real business.
+    </p>
+  </div>
+
+  <footer class="border-t border-teal/10 bg-cream">
+    <div class="mx-auto max-w-6xl px-6 py-10">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <p class="text-lg font-semibold"><span class="text-teal">Clarity</span> Coaching</p>
+          <p class="text-sm text-muted mt-2">{SITE.tagline}</p>
+        </div>
+        <div class="text-sm text-muted">
+          <p class="font-medium text-charcoal mb-2">Contact</p>
+          <p><a href={`mailto:${SITE.email}`} class="hover:text-teal">{SITE.email}</a></p>
+          <p class="mt-1">{SITE.phone}</p>
+          <p class="mt-1"><a href="#" class="hover:text-teal">LinkedIn</a></p>
+        </div>
+        <div class="text-sm text-muted">
+          <p class="font-medium text-charcoal mb-2">Quick Links</p>
+          <p><a href="#services" class="hover:text-teal">Services & Pricing</a></p>
+          <p><a href={SITE.bookingUrl} class="hover:text-teal">Book Discovery Call</a></p>
+          <p><a href="#resource" class="hover:text-teal">Free Leadership Guide</a></p>
+        </div>
+      </div>
+      <div class="mt-8 pt-6 border-t border-teal/10 text-center text-xs text-muted">
+        &copy; {new Date().getFullYear()} {SITE.name}. Built by <a href="https://upstate-web.com" class="text-teal hover:underline">Upstate Web Co</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
