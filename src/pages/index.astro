@@ -67,7 +67,7 @@ import { SITE, SERVICES, TESTIMONIALS, FREE_RESOURCE } from '../lib/config'
           I don't give advice. I ask the questions that help you see what you already know. My clients tell me our sessions are the one hour a week where they actually think clearly.
         </p>
         <p class="text-muted leading-relaxed mb-4">
-          Certifications: ICF PCC, Marshall Goldsmith Stakeholder Centered Coaching, PhD Organizational Psychology.
+          Certifications: Professional Certified Coach (PCC), certified stakeholder coaching methodology, PhD Organizational Psychology.
         </p>
         <a href={SITE.bookingUrl} class="inline-block rounded-lg bg-teal px-5 py-2.5 text-sm font-medium text-white hover:bg-teal-dark transition-colors">
           Let's talk
@@ -166,7 +166,7 @@ import { SITE, SERVICES, TESTIMONIALS, FREE_RESOURCE } from '../lib/config'
         const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ message: text }) })
         const data = await res.json()
         aiResponse.textContent = data.reply || 'I\'m not sure — email Maya directly!'
-      } catch { aiResponse.textContent = 'Something went wrong. Email maya@claritycoaching.co!' }
+      } catch { aiResponse.textContent = 'Something went wrong. Email maya@altuspeakcoaching.com!' }
     }
     aiSend.addEventListener('click', askAI)
     aiInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') askAI() })

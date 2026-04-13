@@ -1,10 +1,10 @@
 export const SITE = {
-  name: 'Clarity Coaching',
+  name: 'Altus Peak Coaching',
   tagline: 'Executive coaching for leaders who want to lead better',
-  url: 'https://claritycoaching.co',
-  email: 'maya@claritycoaching.co',
+  url: 'https://altuspeakcoaching.com',
+  email: 'maya@altuspeakcoaching.com',
   phone: '(864) 555-3941',
-  bookingUrl: 'https://cal.com/claritycoaching/discovery',
+  bookingUrl: '#',
 } as const
 
 export const SERVICES = [
