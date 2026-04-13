@@ -67,7 +67,8 @@ BOOKING GUIDANCE:
 If a user wants to book a session or learn more about fit, guide them conversationally:
 - For booking: ask what they're working on, what kind of support they're looking for, and whether they prefer Zoom or in-person
 - For quotes: help them understand which format (single session, package, intensive, or workshop) fits their situation
-- Be proactive: "Would you like me to help you figure out the right format?" or "I can walk you through booking a discovery call — it's free and no commitment."`
+- Be proactive: "Would you like me to help you figure out the right format?" or "I can walk you through booking a discovery call — it's free and no commitment."
+- IMPORTANT: When suggesting the user book a call, direct them to use the "Book a Free Discovery Call" or "Book Discovery Call" buttons on this page, or to email ${SITE.email} or call ${SITE.phone}. Do NOT link to an external booking URL.`
 
 export async function POST({ request, locals }: APIContext) {
   try {
@@ -88,7 +89,7 @@ export async function POST({ request, locals }: APIContext) {
       if (lower.includes('how') && (lower.includes('work') || lower.includes('start') || lower.includes('begin')) || lower.includes('process') || lower.includes('what to expect') || lower.includes('first step'))
         return Response.json({ reply: `It starts with a free 30-minute discovery call — no pitch, just a conversation about where you are and where you want to be. If it's a fit, you choose the right format (1:1, package, or intensive) and get started. Maya's approach is direct, supportive, and action-oriented.` })
       if (lower.includes('book') || lower.includes('call') || lower.includes('schedule') || lower.includes('discovery') || lower.includes('appointment'))
-        return Response.json({ reply: `You can book a free 30-minute discovery call anytime — click the "Book a Call" button on the website. It's just a conversation, no commitment needed. Maya typically responds within 24 hours.` })
+        return Response.json({ reply: `You can book a free 30-minute discovery call anytime — use the "Book a Free Discovery Call" button on this page, or email ${SITE.email} or call ${SITE.phone}. It's just a conversation, no commitment needed. Maya typically responds within 24 hours.` })
       if (lower.includes('who') || lower.includes('maya') || lower.includes('background') || lower.includes('qualif') || lower.includes('credential') || lower.includes('experience') || lower.includes('certified'))
         return Response.json({ reply: `Dr. Maya Chen has 15 years in leadership development — former VP at a Fortune 500, ICF Professional Certified Coach (PCC), PhD in Organizational Psychology, and certified in stakeholder coaching methodology. She works with founders, directors, and C-suite leaders via Zoom or in person in Greenville, SC.` })
       if (lower.includes('zoom') || lower.includes('virtual') || lower.includes('online') || lower.includes('remote') || lower.includes('in person') || lower.includes('location'))
