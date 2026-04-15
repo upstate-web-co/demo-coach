@@ -1,0 +1,194 @@
+---
+/**
+ * ChatWidget — floating AI chatbot for Clarity Coaching.
+ * Multi-turn conversational chat with Maya's headshot as avatar.
+ * This is a PERSON business — the coach IS the brand.
+ */
+const MAYA_AVATAR = 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80'
+---
+
+<!-- Chat toggle -->
+<button
+  id="chat-toggle"
+  class="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-teal text-white shadow-lg shadow-teal/25 transition-all hover:scale-105 hover:bg-teal-dark hover:shadow-xl"
+  aria-label="Chat with Maya"
+  aria-expanded="false"
+  aria-controls="chat-panel"
+>
+  <svg id="chat-icon-open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+  </svg>
+  <svg id="chat-icon-close" class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+  </svg>
+</button>
+
+<!-- Chat panel -->
+<div id="chat-panel" class="fixed bottom-24 right-6 z-50 hidden w-[370px] max-w-[calc(100vw-48px)] overflow-hidden rounded-2xl border border-teal/15 bg-white shadow-2xl" role="dialog" aria-label="Chat with Maya">
+  <!-- Header -->
+  <div class="bg-teal px-4 py-3.5">
+    <div class="flex items-center gap-3">
+      <img src={MAYA_AVATAR} alt="Maya" class="h-9 w-9 rounded-full object-cover border-2 border-white/30" />
+      <div>
+        <p class="text-sm font-semibold text-white">Ask Maya</p>
+        <p class="text-xs text-white/70">Coaching, services, booking, approach</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Messages -->
+  <div id="chat-messages" class="flex h-[340px] flex-col gap-3 overflow-y-auto p-4 bg-cream">
+    <div class="flex gap-2.5 max-w-[85%]">
+      <img src={MAYA_AVATAR} alt="Maya" class="h-7 w-7 rounded-full object-cover shrink-0 mt-1" />
+      <div class="rounded-xl rounded-tl-none bg-white border border-teal/10 px-4 py-3">
+        <p class="text-sm text-charcoal/80">Hi! I'm Maya. Ask me about coaching services, my approach, booking a discovery call, or anything about working together. How can I help?</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick actions -->
+  <div class="flex gap-2 border-t border-teal/10 bg-cream px-3 py-2.5 overflow-x-auto">
+    <button class="chat-quick shrink-0 rounded-full border border-teal/15 bg-teal/5 px-3 py-1.5 text-xs font-medium text-teal hover:bg-teal/10 transition-colors" data-msg="What coaching packages do you offer?">📋 Packages</button>
+    <button class="chat-quick shrink-0 rounded-full border border-teal/15 bg-teal/5 px-3 py-1.5 text-xs font-medium text-teal hover:bg-teal/10 transition-colors" data-msg="How does the free discovery call work?">📞 Discovery</button>
+    <button class="chat-quick shrink-0 rounded-full border border-teal/15 bg-teal/5 px-3 py-1.5 text-xs font-medium text-teal hover:bg-teal/10 transition-colors" data-msg="What results do your clients typically see?">📈 Results</button>
+  </div>
+
+  <!-- Input -->
+  <div class="border-t border-teal/10 bg-white p-3">
+    <form id="chat-form" class="flex gap-2">
+      <input type="text" id="chat-input" placeholder="Ask Maya anything..." maxlength="500" autocomplete="off"
+        class="flex-1 rounded-xl border border-teal/15 bg-cream px-4 py-2.5 text-sm text-charcoal placeholder-muted/50 focus:border-teal focus:outline-none focus:ring-1 focus:ring-teal/20 transition-all" />
+      <button type="submit" class="rounded-xl bg-teal px-4 py-2.5 text-white transition-all hover:bg-teal-dark" aria-label="Send">
+        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
+      </button>
+    </form>
+  </div>
+</div>
+
+<script define:vars={{ MAYA_AVATAR }}>
+  const toggle = document.getElementById('chat-toggle')
+  const panel = document.getElementById('chat-panel')
+  const iconOpen = document.getElementById('chat-icon-open')
+  const iconClose = document.getElementById('chat-icon-close')
+  const form = document.getElementById('chat-form')
+  const input = document.getElementById('chat-input')
+  const messagesEl = document.getElementById('chat-messages')
+
+  let isOpen = false
+  const history = []
+
+  toggle.addEventListener('click', () => {
+    isOpen = !isOpen
+    panel.classList.toggle('hidden')
+    iconOpen.classList.toggle('hidden')
+    iconClose.classList.toggle('hidden')
+    toggle.setAttribute('aria-expanded', String(isOpen))
+    if (isOpen) input.focus()
+  })
+
+  function escapeHtml(text) {
+    return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/\n/g, '<br />')
+  }
+
+  function linkify(html) {
+    html = html.replace(/\(864\)\s*555-3941/g, '<a href="tel:+18645553941" class="text-teal underline hover:text-teal-dark">(864) 555-3941</a>')
+    html = html.replace(/maya@claritycoaching\.co/g, '<a href="mailto:maya@claritycoaching.co" class="text-teal underline hover:text-teal-dark">maya@claritycoaching.co</a>')
+    html = html.replace(/(?<!href=&quot;)(https?:\/\/[^\s<&]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-teal underline hover:text-teal-dark">$1</a>')
+    return html
+  }
+
+  function addMessage(text, isBot) {
+    const wrapper = document.createElement('div')
+    if (isBot) {
+      wrapper.className = 'flex gap-2.5 max-w-[85%]'
+      const avatar = document.createElement('img')
+      avatar.src = MAYA_AVATAR
+      avatar.alt = 'Maya'
+      avatar.className = 'h-7 w-7 rounded-full object-cover shrink-0 mt-1'
+      const bubble = document.createElement('div')
+      bubble.className = 'rounded-xl rounded-tl-none bg-white border border-teal/10 px-4 py-3'
+      const p = document.createElement('p')
+      p.className = 'text-sm text-charcoal/80'
+      p.innerHTML = linkify(escapeHtml(text))
+      bubble.appendChild(p)
+      wrapper.appendChild(avatar)
+      wrapper.appendChild(bubble)
+    } else {
+      wrapper.className = 'max-w-[85%] self-end rounded-xl rounded-tr-none bg-teal/10 border border-teal/15 px-4 py-3'
+      const p = document.createElement('p')
+      p.className = 'text-sm text-charcoal'
+      p.textContent = text
+      wrapper.appendChild(p)
+    }
+    messagesEl.appendChild(wrapper)
+    messagesEl.scrollTop = messagesEl.scrollHeight
+  }
+
+  function addTypingIndicator() {
+    const wrapper = document.createElement('div')
+    wrapper.id = 'typing-indicator'
+    wrapper.className = 'flex gap-2.5 max-w-[85%]'
+    const avatar = document.createElement('img')
+    avatar.src = MAYA_AVATAR
+    avatar.alt = 'Maya'
+    avatar.className = 'h-7 w-7 rounded-full object-cover shrink-0 mt-1'
+    const bubble = document.createElement('div')
+    bubble.className = 'rounded-xl rounded-tl-none bg-white border border-teal/10 px-4 py-3'
+    bubble.innerHTML = '<div class="flex gap-1.5 items-center h-5"><span class="w-1.5 h-1.5 rounded-full bg-teal/40 animate-bounce" style="animation-delay:0s"></span><span class="w-1.5 h-1.5 rounded-full bg-teal/40 animate-bounce" style="animation-delay:0.15s"></span><span class="w-1.5 h-1.5 rounded-full bg-teal/40 animate-bounce" style="animation-delay:0.3s"></span></div>'
+    wrapper.appendChild(avatar)
+    wrapper.appendChild(bubble)
+    messagesEl.appendChild(wrapper)
+    messagesEl.scrollTop = messagesEl.scrollHeight
+  }
+
+  function removeTypingIndicator() {
+    const el = document.getElementById('typing-indicator')
+    if (el) el.remove()
+  }
+
+  async function sendMessage(userText) {
+    history.push({ role: 'user', content: userText })
+    addMessage(userText, false)
+    input.value = ''
+    input.disabled = true
+    addTypingIndicator()
+
+    try {
+      const res = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: history }),
+      })
+      removeTypingIndicator()
+
+      if (res.ok) {
+        const data = await res.json()
+        const reply = data.reply || data.data?.reply || 'Sorry, I couldn\'t process that. Email me at maya@claritycoaching.co.'
+        history.push({ role: 'assistant', content: reply })
+        addMessage(reply, true)
+      } else {
+        addMessage('Sorry, something went wrong. Email me at maya@claritycoaching.co.', true)
+      }
+    } catch {
+      removeTypingIndicator()
+      addMessage('Connection error. Email me at maya@claritycoaching.co.', true)
+    } finally {
+      input.disabled = false
+      input.focus()
+    }
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    const text = input.value.trim()
+    if (!text) return
+    await sendMessage(text)
+  })
+
+  document.querySelectorAll('.chat-quick').forEach(function(btn) {
+    btn.addEventListener('click', async function() {
+      const msg = btn.dataset.msg
+      await sendMessage(msg)
+    })
+  })
+</script>
