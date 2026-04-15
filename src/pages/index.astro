@@ -1,13 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro'
-import { SITE, SERVICES, TESTIMONIALS, FREE_RESOURCE } from '../lib/config'
+import { SITE, SERVICES, TESTIMONIALS, FREE_RESOURCE, RESULTS, CREDENTIALS } from '../lib/config'
 ---
 
 <Layout>
   <!-- Hero -->
   <section class="relative h-[65vh] flex items-center overflow-hidden">
-    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1200&q=75&auto=format" alt="Executive coaching session" class="absolute inset-0 w-full h-full object-cover brightness-[0.3]" loading="eager" width="1200" height="800" fetchpriority="high" />
-    <div class="relative px-6 mx-auto max-w-6xl">
+    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1600&q=80" alt="Executive coaching session" class="absolute inset-0 w-full h-full object-cover brightness-[0.3]" loading="eager" />
+    <div class="relative px-6 mx-auto max-w-6xl grid md:grid-cols-2 gap-10 items-center">
       <div class="max-w-xl">
         <h1 class="text-4xl md:text-5xl text-white leading-tight" style="font-family: Georgia, serif;">You're a great leader.<br/>Let's make you an <span class="text-teal-light">exceptional</span> one.</h1>
         <p class="mt-4 text-lg text-white/80">Executive coaching for leaders who want clarity, not just advice.</p>
@@ -16,30 +16,61 @@ import { SITE, SERVICES, TESTIMONIALS, FREE_RESOURCE } from '../lib/config'
           <a href="#services" class="rounded-lg border border-white/30 px-6 py-3 text-center font-medium text-white hover:bg-white/10 transition-colors">See Services</a>
         </div>
       </div>
+      <div class="hidden md:block">
+        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&q=80" alt="Maya — Executive Coach" class="rounded-2xl aspect-[3/4] object-cover border-4 border-teal/20 shadow-2xl mx-auto max-w-xs" loading="eager" />
+      </div>
     </div>
   </section>
 
-  <!-- AI Chat -->
-  <section class="bg-cream py-6 px-6">
+  <!-- Inline AI Chat -->
+  <section class="bg-cream py-8 px-6">
     <div class="mx-auto max-w-xl">
-      <div id="chat-container" class="rounded-xl border border-teal/20 bg-white overflow-hidden">
+      <div class="flex items-center gap-3 mb-4">
+        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&q=80" alt="Maya" class="w-12 h-12 rounded-full object-cover border-2 border-teal/25 shadow-sm" />
+        <div>
+          <p class="text-sm font-semibold text-charcoal">Ask Maya</p>
+          <p class="text-xs text-muted">Coaching, pricing, how it works, booking</p>
+        </div>
+      </div>
+      <div class="rounded-xl border border-teal/15 bg-white overflow-hidden">
         <div id="chat-messages" class="hidden max-h-80 overflow-y-auto px-4 pt-4 pb-2 space-y-3"></div>
-        <div id="chat-input-bar" class="flex gap-2 p-3">
-          <input id="chat-input" type="text" placeholder="What's executive coaching? How does it work? What are your rates?" class="flex-1 rounded-lg border border-teal/20 bg-cream px-5 py-2.5 text-sm placeholder:text-muted focus:border-teal focus:outline-none" />
+        <div id="chat-quick" class="flex gap-2 px-3 py-2.5 overflow-x-auto border-b border-teal/10">
+          <button class="chat-q shrink-0 rounded-full border border-teal/20 bg-teal/5 px-3 py-1.5 text-xs font-medium text-teal hover:bg-teal/10 transition-colors" data-msg="What coaching packages do you offer?">Packages</button>
+          <button class="chat-q shrink-0 rounded-full border border-teal/20 bg-teal/5 px-3 py-1.5 text-xs font-medium text-teal hover:bg-teal/10 transition-colors" data-msg="How does the free discovery call work?">Discovery Call</button>
+          <button class="chat-q shrink-0 rounded-full border border-teal/20 bg-teal/5 px-3 py-1.5 text-xs font-medium text-teal hover:bg-teal/10 transition-colors" data-msg="What results do your clients see?">Results</button>
+        </div>
+        <div class="flex gap-2 p-3">
+          <input id="chat-input" type="text" placeholder="Ask about coaching, pricing, or booking..." maxlength="500" autocomplete="off" class="flex-1 rounded-lg border border-teal/15 bg-cream px-5 py-2.5 text-sm text-charcoal placeholder:text-muted focus:border-teal focus:outline-none" />
           <button id="chat-send" class="rounded-lg bg-teal px-5 py-2.5 text-sm font-medium text-white hover:bg-teal-dark transition-colors">Ask</button>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Results First -->
+  <section class="py-16 px-6 bg-cream">
+    <div class="mx-auto max-w-3xl">
+      <h2 class="reveal text-3xl font-semibold text-center mb-10">Results Clients See</h2>
+      <div class="grid md:grid-cols-3 gap-6 text-center">
+        {RESULTS.map((r) => (
+          <div class="reveal rounded-xl border border-teal/10 bg-white p-6">
+            <p class="text-3xl font-bold text-teal">{r.metric}</p>
+            <p class="text-sm text-muted mt-2">{r.description}</p>
+          </div>
+        ))}
+      </div>
+      <p class="text-center text-xs text-muted mt-6">(Based on client self-assessments, fictional example for demo purposes)</p>
+    </div>
+  </section>
+
   <!-- Services -->
   <section id="services" class="py-20 px-6">
     <div class="mx-auto max-w-4xl">
-      <h2 class="text-3xl font-semibold text-center mb-2">Services & Investment</h2>
-      <p class="text-center text-muted text-sm mb-10">Clear pricing. No surprises. Every engagement starts with a free discovery call.</p>
+      <h2 class="reveal text-3xl font-semibold text-center mb-2">Services & Investment</h2>
+      <p class="reveal delay-1 text-center text-muted text-sm mb-10">Clear pricing. No surprises. Every engagement starts with a free discovery call.</p>
       <div class="grid md:grid-cols-2 gap-5">
-        {SERVICES.map((s, i) => (
-          <div class={`rounded-xl p-6 ${s.popular ? 'border-2 border-teal bg-teal/5' : 'border border-teal/10 bg-white'}`}>
+        {SERVICES.map((s) => (
+          <div class={`rounded-xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg ${s.popular ? 'border-2 border-teal bg-teal/5' : 'border border-teal/10 bg-white hover:border-teal/25'}`}>
             {s.popular && <p class="text-xs font-medium text-teal uppercase tracking-wide mb-2">Most Popular</p>}
             <h3 class="text-lg font-semibold">{s.name}</h3>
             <div class="flex items-baseline gap-2 mt-1">
@@ -47,21 +78,6 @@ import { SITE, SERVICES, TESTIMONIALS, FREE_RESOURCE } from '../lib/config'
               <span class="text-xs text-muted">{s.duration}</span>
             </div>
             <p class="text-sm text-muted mt-3 leading-relaxed">{s.description}</p>
-            <button class="mt-3 text-xs text-teal hover:text-teal-dark transition-colors flex items-center gap-1 cursor-pointer" data-service-toggle={i}>
-              Learn more <span class="transition-transform" data-service-arrow={i}>&#9662;</span>
-            </button>
-            <div class="hidden mt-3 pt-3 border-t border-teal/10" data-service-detail={i}>
-              <div class="space-y-2 text-xs text-muted leading-relaxed">
-                <p><span class="font-medium text-charcoal">Investment:</span> {s.price}</p>
-                <p><span class="font-medium text-charcoal">Duration:</span> {s.duration}</p>
-                <p>
-                  {s.name === '1:1 Executive Coaching' && 'Bi-weekly sessions recommended. Each session is tailored to your current challenges. Between sessions, apply what you learn and come back with what worked and what didn\'t. Zoom or in person.'}
-                  {s.name === '6-Session Package' && 'The most popular choice for a reason. Six sessions over 3 months gives you enough time to build real momentum. Includes email support between sessions for when real-time challenges come up. Save $150 vs individual sessions.'}
-                  {s.name === 'Team Workshop' && 'Available on-site or virtual. Customized to your team\'s challenges. Topics include communication, conflict resolution, strategic alignment, and leadership transitions. Pre-workshop assessment included for teams of 8+.'}
-                  {s.name === 'VIP Intensive' && 'A full day of focused work: leadership assessment, deep coaching, strategic action plan, and 30-day follow-up call. Ideal for leaders at a crossroads, stepping into new roles, or preparing for major decisions. Lunch included for in-person sessions.'}
-                </p>
-              </div>
-            </div>
             <a href={SITE.bookingUrl} class={`block mt-5 text-center rounded-lg py-2.5 text-sm font-medium transition-colors ${s.popular ? 'bg-teal text-white hover:bg-teal-dark' : 'border border-teal/20 text-teal hover:bg-teal/5'}`}>
               Book Discovery Call
             </a>
@@ -76,16 +92,18 @@ import { SITE, SERVICES, TESTIMONIALS, FREE_RESOURCE } from '../lib/config'
     <div class="mx-auto max-w-4xl grid md:grid-cols-2 gap-10 items-center">
       <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80" alt="Dr. Maya Chen" class="rounded-xl aspect-[4/5] object-cover" loading="lazy" />
       <div>
-        <h2 class="text-3xl font-semibold mb-4">Meet Maya</h2>
+        <h2 class="reveal text-3xl font-semibold mb-4">Meet Maya</h2>
         <p class="text-muted leading-relaxed mb-4">
           I've spent 15 years in leadership development — first as a VP at a Fortune 500, then as an executive coach working with founders, directors, and C-suite leaders.
         </p>
         <p class="text-muted leading-relaxed mb-4">
           I don't give advice. I ask the questions that help you see what you already know. My clients tell me our sessions are the one hour a week where they actually think clearly.
         </p>
-        <p class="text-muted leading-relaxed mb-4">
-          Certifications: Professional Certified Coach (PCC), certified stakeholder coaching methodology, PhD Organizational Psychology.
-        </p>
+        <div class="flex flex-wrap gap-2 mb-6">
+          {CREDENTIALS.map((c) => (
+            <span class="rounded-full bg-teal/10 text-teal text-xs font-medium px-3 py-1.5">{c}</span>
+          ))}
+        </div>
         <a href={SITE.bookingUrl} class="inline-block rounded-lg bg-teal px-5 py-2.5 text-sm font-medium text-white hover:bg-teal-dark transition-colors">
           Let's talk
         </a>
@@ -96,10 +114,10 @@ import { SITE, SERVICES, TESTIMONIALS, FREE_RESOURCE } from '../lib/config'
   <!-- Testimonials -->
   <section id="testimonials" class="py-20 px-6">
     <div class="mx-auto max-w-4xl">
-      <h2 class="text-3xl font-semibold text-center mb-10">What Leaders Say</h2>
+      <h2 class="reveal text-3xl font-semibold text-center mb-10">What Leaders Say</h2>
       <div class="grid md:grid-cols-3 gap-5">
         {TESTIMONIALS.map((t) => (
-          <div class="rounded-xl border border-teal/10 bg-white p-6">
+          <div class="rounded-xl border border-teal/10 border-l-4 border-l-teal bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-teal/20">
             <p class="text-sm italic text-charcoal leading-relaxed">"{t.quote}"</p>
             <div class="mt-4 pt-4 border-t border-teal/10">
               <p class="text-sm font-medium">{t.author}</p>
@@ -128,7 +146,7 @@ import { SITE, SERVICES, TESTIMONIALS, FREE_RESOURCE } from '../lib/config'
   <!-- How It Works -->
   <section class="py-20 px-6">
     <div class="mx-auto max-w-3xl">
-      <h2 class="text-3xl font-semibold text-center mb-10">How It Works</h2>
+      <h2 class="reveal text-3xl font-semibold text-center mb-10">How It Works</h2>
       <div class="space-y-6">
         <div class="flex gap-4">
           <div class="flex-shrink-0 w-10 h-10 rounded-full bg-teal text-white flex items-center justify-center font-bold text-sm">1</div>
@@ -163,17 +181,6 @@ import { SITE, SERVICES, TESTIMONIALS, FREE_RESOURCE } from '../lib/config'
   </section>
 
   <script>
-    // Service expand/collapse
-    document.querySelectorAll('[data-service-toggle]').forEach(el => {
-      el.addEventListener('click', () => {
-        const idx = (el as HTMLElement).dataset.serviceToggle
-        const detail = document.querySelector(`[data-service-detail="${idx}"]`)
-        const arrow = document.querySelector(`[data-service-arrow="${idx}"]`)
-        if (detail) detail.classList.toggle('hidden')
-        if (arrow) arrow.classList.toggle('rotate-180')
-      })
-    })
-
     document.getElementById('resource-form')?.addEventListener('submit', (e) => {
       e.preventDefault()
       const status = document.getElementById('resource-status')!
@@ -186,45 +193,44 @@ import { SITE, SERVICES, TESTIMONIALS, FREE_RESOURCE } from '../lib/config'
     const chatInput = document.getElementById('chat-input') as HTMLInputElement
     const chatSend = document.getElementById('chat-send')!
     const chatMessages = document.getElementById('chat-messages')!
-    let chatHistory: Array<{ role: string; content: string }> = []
+    const chatQuick = document.getElementById('chat-quick')!
+    const chatHistory: Array<{ role: string; content: string }> = []
     let chatBusy = false
 
-    function addMessage(role: string, text: string) {
+    function escapeHtml(t: string): string {
+      return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\n/g,'<br />')
+    }
+    function linkify(h: string): string {
+      h = h.replace(/\(864\)\s*555-3941/g, '<a href="tel:+18645553941" class="text-teal underline">(864) 555-3941</a>')
+      h = h.replace(/maya@claritycoaching\.co/g, '<a href="mailto:maya@claritycoaching.co" class="text-teal underline">maya@claritycoaching.co</a>')
+      return h
+    }
+    function addMsg(role: string, text: string) {
       chatMessages.classList.remove('hidden')
-      const wrapper = document.createElement('div')
-      wrapper.className = role === 'user' ? 'flex justify-end' : 'flex justify-start'
+      const el = document.createElement('div')
+      el.className = role === 'user' ? 'flex justify-end' : 'flex justify-start'
       const bubble = document.createElement('div')
       bubble.className = role === 'user'
-        ? 'bg-teal text-white rounded-2xl rounded-br-sm px-4 py-2 max-w-[80%] text-sm'
-        : 'bg-cream rounded-2xl rounded-bl-sm px-4 py-2 max-w-[80%] text-sm leading-relaxed'
-      if (role === 'assistant') {
-        let html = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-        html = html.replace(/\((\d{3})\)\s*(\d{3})-(\d{4})/g, '<a href="tel:$1$2$3" class="underline">($1) $2-$3</a>')
-        html = html.replace(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g, '<a href="mailto:$1" class="underline">$1</a>')
-        bubble.innerHTML = html
-      } else {
-        bubble.textContent = text
-      }
-      wrapper.appendChild(bubble)
-      chatMessages.appendChild(wrapper)
+        ? 'bg-teal/10 text-charcoal rounded-xl rounded-tr-sm px-4 py-2.5 max-w-[80%] text-sm leading-relaxed'
+        : 'bg-cream text-charcoal rounded-xl rounded-tl-sm px-4 py-2.5 max-w-[80%] text-sm leading-relaxed'
+      bubble.innerHTML = role === 'user' ? escapeHtml(text) : linkify(escapeHtml(text))
+      el.appendChild(bubble)
+      chatMessages.appendChild(el)
       chatMessages.scrollTop = chatMessages.scrollHeight
     }
-
     function showTyping() {
       const el = document.createElement('div')
       el.id = 'typing-indicator'
       el.className = 'flex justify-start'
-      el.innerHTML = '<div class="bg-cream text-muted rounded-2xl rounded-bl-sm px-4 py-2 text-sm">Thinking...</div>'
+      el.innerHTML = '<div class="bg-cream rounded-xl rounded-tl-sm px-4 py-2.5"><div class="flex gap-1.5 items-center h-5"><span class="w-1.5 h-1.5 rounded-full bg-teal/40 animate-bounce"></span><span class="w-1.5 h-1.5 rounded-full bg-teal/40 animate-bounce" style="animation-delay:.15s"></span><span class="w-1.5 h-1.5 rounded-full bg-teal/40 animate-bounce" style="animation-delay:.3s"></span></div></div>'
       chatMessages.appendChild(el)
       chatMessages.scrollTop = chatMessages.scrollHeight
     }
-
-    async function sendMessage() {
-      const text = chatInput.value.trim()
+    async function sendChat(text: string) {
       if (!text || chatBusy) return
       chatBusy = true
       chatInput.value = ''
-      addMessage('user', text)
+      addMsg('user', text)
       showTyping()
       try {
         const res = await fetch('/api/chat', {
@@ -232,21 +238,24 @@ import { SITE, SERVICES, TESTIMONIALS, FREE_RESOURCE } from '../lib/config'
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ message: text, history: chatHistory }),
         })
-        const data = await res.json()
         document.getElementById('typing-indicator')?.remove()
-        const reply = data.reply || "I'm not sure — email Maya directly!"
-        addMessage('assistant', reply)
+        const data = await res.json()
+        const reply = data.reply || 'I\'m not sure — email me at maya@claritycoaching.co!'
+        addMsg('assistant', reply)
         chatHistory.push({ role: 'user', content: text })
         chatHistory.push({ role: 'assistant', content: reply })
-        if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20)
+        if (chatHistory.length > 20) chatHistory.splice(0, chatHistory.length - 20)
       } catch {
         document.getElementById('typing-indicator')?.remove()
-        addMessage('assistant', 'Something went wrong. Email maya@altuspeakcoaching.com!')
+        addMsg('assistant', 'Something went wrong. Email maya@claritycoaching.co!')
       }
       chatBusy = false
+      chatInput.focus()
     }
-
-    chatSend.addEventListener('click', sendMessage)
-    chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendMessage() })
+    chatSend.addEventListener('click', () => sendChat(chatInput.value.trim()))
+    chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendChat(chatInput.value.trim()) })
+    document.querySelectorAll('.chat-q').forEach(btn => {
+      btn.addEventListener('click', () => { sendChat((btn as HTMLElement).dataset.msg!); chatQuick.remove() })
+    })
   </script>
 </Layout>

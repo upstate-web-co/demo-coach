@@ -1,10 +1,10 @@
 export const SITE = {
-  name: 'Altus Peak Coaching',
+  name: 'Clarity Coaching',
   tagline: 'Executive coaching for leaders who want to lead better',
-  url: 'https://altuspeakcoaching.com',
-  email: 'maya@altuspeakcoaching.com',
+  url: 'https://claritycoaching.co',
+  email: 'maya@claritycoaching.co',
   phone: '(864) 555-3941',
-  bookingUrl: '#',
+  bookingUrl: 'https://cal.com/claritycoaching/discovery',
 } as const
 
 export const SERVICES = [
@@ -24,3 +24,11 @@ export const FREE_RESOURCE = {
   title: '5 Questions Every Leader Should Ask Themselves This Quarter',
   description: 'A free guide with the exact self-assessment framework I use with my executive clients. Takes 15 minutes. Changes how you see your next 90 days.',
 }
+
+export const RESULTS = [
+  { metric: '87%', description: 'report clearer decision-making within 6 sessions' },
+  { metric: '3.2x', description: 'average ROI on coaching investment (self-reported)' },
+  { metric: '92%', description: 'continue with a second engagement' },
+]
+
+export const CREDENTIALS = ['Certified Professional Coach', '15+ Years Leadership', 'Fortune 500 Experience', 'Organizational Psychology']
