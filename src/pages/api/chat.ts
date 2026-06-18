@@ -16,9 +16,7 @@ RULES: Be warm, professional, and encouraging. 2-3 sentences max. Don't diagnose
 
 export async function POST({ request, locals }: APIContext) {
   try {
-    const body = await request.json()
-    const message = body.message || ''
-    const history: Array<{role: string; content: string}> = body.history || []
+    const { message } = await request.json()
     if (!message) return Response.json({ reply: 'What would you like to know about coaching?' })
     const env = (locals as Record<string, any>).runtime?.env
     const apiKey = env?.ANTHROPIC_API_KEY
@@ -32,10 +30,7 @@ export async function POST({ request, locals }: APIContext) {
     }
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST', headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01' },
-      body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001', max_tokens: 300, system: SYSTEM_PROMPT,
-        messages: [...history.slice(-18).map((h: {role: string; content: string}) => ({ role: h.role, content: h.content })), { role: 'user', content: message }],
-      }),
+      body: JSON.stringify({ model: 'claude-haiku-4-5-20251001', max_tokens: 256, system: SYSTEM_PROMPT, messages: [{ role: 'user', content: message }] }),
     })
     const data = await response.json() as { content?: { text: string }[] }
     return Response.json({ reply: data.content?.[0]?.text || 'I\'m not sure — book a discovery call and ask Maya directly!' })

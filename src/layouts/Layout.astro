@@ -14,7 +14,7 @@ const { title = `${SITE.name} — ${SITE.tagline}`, description = `Executive coa
   <link rel="preconnect" href="https://images.unsplash.com" />
 </head>
 <body class="bg-warm-white text-charcoal antialiased">
-  <nav id="main-nav" class="sticky top-0 z-50 bg-warm-white/80 backdrop-blur-md border-b border-transparent transition-all duration-500">
+  <nav class="sticky top-0 z-50 bg-warm-white/95 backdrop-blur-sm border-b border-teal/10">
     <div class="mx-auto max-w-6xl flex items-center justify-between px-6 py-4">
       <a href="/" class="text-xl font-semibold"><span class="text-teal">Clarity</span> Coaching</a>
       <div class="hidden md:flex items-center gap-6 text-sm">
@@ -60,18 +60,5 @@ const { title = `${SITE.name} — ${SITE.tagline}`, description = `Executive coa
       </div>
     </div>
   </footer>
-  <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible') })
-    }, { threshold: 0.08, rootMargin: '-20px' })
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
-
-    const nav = document.getElementById('main-nav')
-    if (nav) {
-      window.addEventListener('scroll', () => {
-        nav.classList.toggle('nav-scrolled', window.scrollY > 60)
-      }, { passive: true })
-    }
-  </script>
 </body>
 </html>

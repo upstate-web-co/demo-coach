@@ -4,7 +4,25 @@ export const SITE = {
   url: 'https://claritycoaching.co',
   email: 'maya@claritycoaching.co',
   phone: '(864) 555-3941',
+  address: 'Greenville, SC',
+  postalAddress: {
+    streetAddress: '',
+    addressLocality: 'Greenville',
+    addressRegion: 'SC',
+    postalCode: '',
+    addressCountry: 'US',
+  },
+  geo: { latitude: '34.8526', longitude: '-82.4030' },
+  openingHours: [
+    { dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '09:00', closes: '17:00' },
+    { dayOfWeek: ['Saturday', 'Sunday'], opens: '00:00', closes: '00:00' },
+  ],
+  sameAs: [] as string[],
+  priceRange: '$$$',
+  paymentAccepted: ['Credit Card'] as string[],
+  currenciesAccepted: 'USD',
   bookingUrl: 'https://cal.com/claritycoaching/discovery',
+  indexable: false,
 } as const
 
 export const SERVICES = [
@@ -24,11 +42,3 @@ export const FREE_RESOURCE = {
   title: '5 Questions Every Leader Should Ask Themselves This Quarter',
   description: 'A free guide with the exact self-assessment framework I use with my executive clients. Takes 15 minutes. Changes how you see your next 90 days.',
 }
-
-export const RESULTS = [
-  { metric: '87%', description: 'report clearer decision-making within 6 sessions' },
-  { metric: '3.2x', description: 'average ROI on coaching investment (self-reported)' },
-  { metric: '92%', description: 'continue with a second engagement' },
-]
-
-export const CREDENTIALS = ['Certified Professional Coach', '15+ Years Leadership', 'Fortune 500 Experience', 'Organizational Psychology']
